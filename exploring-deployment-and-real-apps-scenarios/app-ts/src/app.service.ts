@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { createWriteStream } from 'fs';
 
 @Injectable()
 export class AppService {
@@ -7,6 +8,11 @@ export class AppService {
   }
 
   getExample(): string {
+    const file = createWriteStream('kubernetes.txt');
+    for (let i = 0; i <= 10000; i++) {
+      file.write('Escrever no arquivo');
+    }
+    file.end();
     return process.env.API_KEY ?? 'Sem API KEY!';
   }
 }
