@@ -1,0 +1,14 @@
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class HealthService {
+  checkHealth(): string {
+    console.log('Health checked');
+    return 'OK';
+  }
+
+  checkReady(): string {
+    console.log('Readiness checked');
+    return 'OK';
+  }
+}

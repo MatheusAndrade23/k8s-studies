@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: app-ts
-          image: mdta023/app-ts:v5
+          image: mdta023/app-ts:v7
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
@@ -40,7 +40,37 @@ spec:
           #         name: app-ts-secrets
           #         key: api-key
           ports:
-            - containerPort: 3000
+            - containerPort: 3333
+          startupProbe:
+            # exec:
+            #   command:
+            #     - /bin/sh
+            #     - -c
+            #     - check.sh
+            httpGet:
+              path: /healthz
+              port: 3333
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+            periodSeconds: 10
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 3333
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3333
+            failureThreshold: 5
+            successThreshold: 1
+            periodSeconds: 10
+            timeoutSeconds: 1
           resources:
             requests:
               cpu: 400m
