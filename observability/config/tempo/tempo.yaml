@@ -2,16 +2,21 @@ server:
   http_listen_port: 3200
 
 distributor:
-  receiver:
+  receivers:
     otlp:
       protocols:
         http:
+          endpoint: 0.0.0.0:4318
         grpc:
+          endpoint: 0.0.0.0:4317
 
-ingester:
-  max_block_duration: 5m
+backend_scheduler:
+  provider:
+    compaction:
+      compaction:
+        block_retention: 30m
 
-compactor:
+backend_worker:
   compaction:
     block_retention: 30m
 
@@ -23,7 +28,7 @@ metrics_generator:
   storage:
     path: /tmp/tempo/generator/wal
     remote_write:
-      - url: http://mimir:9090/api/v1/push
+      - url: http://mimir:9009/api/v1/push
         send_exemplars: true
 
 storage:
@@ -35,4 +40,6 @@ storage:
       path: /tmp/tempo/blocks
 
 overrides:
-  metrics_generator_processors: [service_graphs, span_metrics]
+  defaults:
+    metrics_generator:
+      processors: [service-graphs, span-metrics]
