@@ -42,7 +42,7 @@ exporters:
     tls:
       insecure: true
   prometheusremotewrite:
-    endpoint: http://mimir:9090/api/v1/push
+    endpoint: http://mimir:9009/api/v1/push
     tls:
       insecure: true
 
