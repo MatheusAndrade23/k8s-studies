@@ -61,6 +61,7 @@ services:
       - loki
       - tempo
       - mimir
+      - prometheus
 
   otel:
     image: otel/opentelemetry-collector-contrib:latest
@@ -82,6 +83,7 @@ services:
       - grafana
       - mimir
       - tempo
+      - prometheus
 
   promtail:
     image: grafana/promtail:latest
