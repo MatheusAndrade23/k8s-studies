@@ -14,4 +14,9 @@ export class AppController {
   example(): string {
     return this.appService.getExample();
   }
+
+  @Get('/metric-test')
+  metricTest(): string {
+    return this.appService.getMetricTest();
+  }
 }

@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { createWriteStream } from 'fs';
+import { metrics } from './tracer';
 
 @Injectable()
 export class AppService {
   getHello(): string {
+    const metric = metrics.getMeter('app-ts');
+    const successMetric = metric.createCounter('hello-success');
+    successMetric.add(1);
     return process.env.APP ?? 'APP env!';
   }
 
@@ -14,5 +18,12 @@ export class AppService {
     }
     file.end();
     return process.env.API_KEY ?? 'Sem API KEY!';
+  }
+
+  getMetricTest() {
+    const metric = metrics.getMeter('app-ts');
+    const errorMetric = metric.createCounter('hello_error');
+    errorMetric.add(1);
+    return 'Métrica Acionada';
   }
 }

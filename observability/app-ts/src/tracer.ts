@@ -7,9 +7,12 @@ import {
   ATTR_SERVICE_NAME,
   ATTR_SERVICE_VERSION,
 } from '@opentelemetry/semantic-conventions';
-import { SimpleLogRecordProcessor } from '@opentelemetry/sdk-logs';
-import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-proto';
-import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+import {
+  diag,
+  DiagConsoleLogger,
+  DiagLogLevel,
+  metrics,
+} from '@opentelemetry/api';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-grpc';
 
 const SERVICE_NAME = 'app-ts';
@@ -38,13 +41,10 @@ diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
 const sdk = new NodeSDK({
   traceExporter,
-  metricReader,
-  logRecordProcessors: [
-    new SimpleLogRecordProcessor({ exporter: new OTLPLogExporter() }),
-  ],
+  metricReaders: [metricReader],
   instrumentations: [getNodeAutoInstrumentations()],
   resource: mergedResource,
   serviceName: SERVICE_NAME,
 });
 
-export default sdk;
+export { sdk, metrics };
