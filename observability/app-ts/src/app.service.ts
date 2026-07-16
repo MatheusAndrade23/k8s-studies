@@ -24,6 +24,8 @@ export class AppService {
     const metric = metrics.getMeter('app-ts');
     const errorMetric = metric.createCounter('hello_error');
     errorMetric.add(1);
+    const histogram = metric.createHistogram('request_duration');
+    histogram.record(1000);
     return 'Métrica Acionada';
   }
 }
