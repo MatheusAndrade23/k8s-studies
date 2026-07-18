@@ -18,12 +18,6 @@ processors:
     send_batch_max_size: 100
     send_batch_size: 10
     timeout: 10s
-  resource:
-    attributes:
-      - action: insert
-        key: loki.resource, labels
-        value: service.name, service.environment, service.version
-
 exporters:
   otlphttp:
     endpoint: http://loki:3100/otlp
@@ -56,7 +50,7 @@ service:
   pipelines:
     logs:
       receivers: [otlp]
-      processors: [resource, batch]
+      processors: [batch]
       exporters: [otlphttp]
     traces:
       receivers: [otlp]
