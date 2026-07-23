@@ -4,11 +4,11 @@ import { Injectable } from '@nestjs/common';
 export class HealthService {
   checkHealth(): string {
     console.log('Health checked');
-    return 'OK';
+    return 'OK - v2';
   }
 
   checkReady(): string {
     console.log('Readiness checked');
-    return 'OK';
+    return 'OK - v2';
   }
 }

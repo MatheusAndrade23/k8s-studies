@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: app-service-mesh
+  name: app-service-mesh-v2
 
 spec:
   replicas: 4
@@ -18,11 +18,11 @@ spec:
     metadata:
       labels:
         app: app-service-mesh
-        version: v1
+        version: v2
     spec:
       containers:
         - name: app-service-mesh
-          image: mdta023/app-service-mesh:v1
+          image: mdta023/app-service-mesh:v2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3333
