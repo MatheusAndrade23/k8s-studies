@@ -10,6 +10,12 @@ spec:
     - name: V1
       labels:
         version: v1
+      trafficPolicy:
+        loadBalancer:
+          simple: LEAST_CONN
     - name: V2
       labels:
         version: v2
+      trafficPolicy:
+        loadBalancer:
+          simple: RANDOM
