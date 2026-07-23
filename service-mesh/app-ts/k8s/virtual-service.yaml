@@ -9,8 +9,12 @@ spec:
     - app-service-mesh-svc.app.svc.cluster.local
   http:
     - fault:
-        delay:
-          fixedDelay: 5s
+        #  delay:
+        #    fixedDelay: 5s
+        #    percentage:
+        #      value: 20
+        abort:
+          httpStatus: 504
           percentage:
             value: 20
       route:
