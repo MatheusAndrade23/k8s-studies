@@ -14,7 +14,8 @@ spec:
       baseEjectionTime: 30s
       maxEjectionPercent: 100
     loadBalancer:
-      simple: RANDOM
+      consistentHash:
+        httpQueryParameterName: 'teste'
   subsets:
     - name: V1
       labels:
